@@ -1,15 +1,25 @@
+import { useState } from "react";
+
 interface TwitterCardProps {
   user: string;
   name: string;
-  isFollowing: boolean;
+  isFollowingInicial: boolean;
 }
 
-export function TwitterCard({ user, name, isFollowing }: TwitterCardProps) {
+export function TwitterCard({
+  user,
+  name,
+  isFollowingInicial,
+}: TwitterCardProps) {
+  const [isFollowing, setEstado] = useState(isFollowingInicial);
+
   const buttonClassName =
     "tw-followCard-button" + (isFollowing ? " is-following" : "");
   const buttonText = isFollowing ? "Siguiendo" : "Seguir";
 
-  function handleClick() {}
+  function handleClick() {
+    setEstado(!isFollowing);
+  }
 
   return (
     <article className="tw-followCard">
