@@ -35,7 +35,7 @@ function App() {
           <TwitterCard
             user={u.user}
             name={u.name}
-            isFollowing={u.isFollowing}
+            isFollowingInicial={u.isFollowing}
           ></TwitterCard>
         );
       })}
