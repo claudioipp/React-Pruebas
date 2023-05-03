@@ -58,9 +58,9 @@ export function TwitterCard({
             viewBox="0 0 24 24"
             fill="none"
             stroke="#1da1f2"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
             <path d="M12 2 L15.09 8.43 L22 9.27 L17 14.16 L18.18 21 L12 17.66 L5.82 21 L7 14.16 L2 9.27 L8.91 8.43 Z"></path>
           </svg>
