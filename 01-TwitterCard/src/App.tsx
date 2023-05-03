@@ -10,35 +10,39 @@ function App() {
       user: "claudioippoliti",
       name: "Claudio Ippoliti",
       isFollowing: true,
+      isStared: true,
     },
     {
       user: "midudev",
       name: "Miguel Ángel Durán",
       isFollowing: false,
+      isStared: false,
     },
     {
       user: "pheralb",
       name: "Pablo Heraldo",
       isFollowing: false,
+      isStared: false,
     },
     {
       user: "PacoHdezs",
       name: "Paco Hernandez",
       isFollowing: false,
+      isStared: true,
     },
   ];
 
   return (
     <div className="App">
-      {cards.map((u) => {
-        return (
-          <TwitterCard
-            user={u.user}
-            name={u.name}
-            isFollowingInicial={u.isFollowing}
-          ></TwitterCard>
-        );
-      })}
+      {cards.map(({ user, name, isFollowing, isStared }) => (
+        <TwitterCard
+          key={user}
+          user={user}
+          name={name}
+          isFollowingInicial={isFollowing}
+          isStaredInicial={isStared}
+        ></TwitterCard>
+      ))}
     </div>
   );
 }
