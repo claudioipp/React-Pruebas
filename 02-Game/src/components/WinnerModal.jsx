@@ -24,7 +24,7 @@ export const WinnerModal = ({ winner, board, funcionCerrar }) => {
         )}
 
         <footer>
-          <button onClick={funcionCerrar}>Volver a jugar</button>
+          <button onClick={funcionCerrar}>NUEVO JUEGO</button>
         </footer>
       </div>
     </section>
