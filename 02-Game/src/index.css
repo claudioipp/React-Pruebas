@@ -19,6 +19,7 @@
 body {
   margin: 0;
   display: flex;
+  align-items: center;
   justify-content: center;
   min-width: 320px;
   min-height: 100vh;
@@ -82,9 +83,24 @@ body {
   border-color: transparent;
 }
 
+.winner .square.is-colored {
+  border-color: #333;
+  border-width: 1px;
+  background-color: #191919;
+}
+
+.square:active {
+  color: #fff;
+  background: #003366;
+}
+
 .square.is-selected {
   color: #fff;
   background: #09f;
+}
+
+.square.is-colored {
+  color: #09f;
 }
 
 .winner {
@@ -95,7 +111,7 @@ body {
   left: 0;
   display: grid;
   place-items: center;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .winner .text {

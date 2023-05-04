@@ -1,7 +1,8 @@
-export const TURNS = { // turnos
-  X: 'x', 
-  O: 'o'
-}
+export const TURNS = {
+  // turnos
+  X: "\u274C\uFE0E",
+  O: "\u2B58\uFE0E",
+};
 
 export const WINNER_COMBOS = [
   [0, 1, 2],
@@ -11,5 +12,5 @@ export const WINNER_COMBOS = [
   [1, 4, 7],
   [2, 5, 8],
   [0, 4, 8],
-  [2, 4, 6]
-]
+  [2, 4, 6],
+];
