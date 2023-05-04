@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TurnoActual } from "./components/TurnoActual";
 import { WinnerModal } from "./components/WinnerModal";
-import { checkEndGame, checkWinnerFrom } from "./logic/game";
+import { checkEndGame, checkWinnerFrom, findBestMove } from "./logic/game";
 import { TURNS } from "./logic/constants";
 import confetti from "canvas-confetti";
 import { Tablero } from "./components/Tablero";
@@ -31,6 +31,8 @@ function App() {
       setGanador(nuevoGanador);
     } else if (checkEndGame(newBoard)) {
       setGanador(false); //Pongo FALSE en ganador porque no hay mas movimientos (empate)
+    } else {
+      //if (nuevoTurno == TURNS.O) setTimeout(jugadaIA, 1000);
     }
   };
 
@@ -40,6 +42,12 @@ function App() {
     setGanador(null);
   };
 
+  const jugadaIA = () => {
+    const bestMove = findBestMove(board, turnoActual);
+    //console.log(`La mejor jugada para ${turnoActual} es ${bestMove}.`);
+    clickCelda(bestMove);
+  };
+
   return (
     <main className="board">
       <h1>Tic Tac Toe</h1>
@@ -47,6 +55,7 @@ function App() {
 
       <TurnoActual turno={turnoActual} />
       <button onClick={resetGame}>LIMPIAR</button>
+      <button onClick={jugadaIA}>JUGADA IA</button>
       <WinnerModal winner={ganador} board={board} funcionCerrar={resetGame} />
     </main>
   );
