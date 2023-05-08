@@ -8,3 +8,8 @@ export const lsGet = (key) => {
     return value;
 }
 
+
+export const lsRemove = (key) => {
+    window.localStorage.removeItem(key);
+}
+

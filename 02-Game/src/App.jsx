@@ -5,7 +5,7 @@ import { checkEndGame, checkWinnerFrom, findBestMove } from "./logic/game";
 import { TURNS } from "./logic/constants";
 import confetti from "canvas-confetti";
 import { Tablero } from "./components/Tablero";
-import { lsGet, lsSet } from "./logic/localstorage";
+import { lsGet, lsRemove, lsSet } from "./logic/localstorage";
 
 function App() {
   const [board, setBoard] = useState( () => {
@@ -54,8 +54,8 @@ function App() {
     setGanador(null);
 
     //Limpio el LOCAL STORAGE
-    lsSet('board', newBoard);
-    lsSet('turno', TURNS.X);
+    lsRemove('board', newBoard);
+    lsRemove('turno', TURNS.X);
   };
 
   const jugadaIA = () => {
