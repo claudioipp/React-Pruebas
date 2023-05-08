@@ -5,13 +5,20 @@ import { checkEndGame, checkWinnerFrom, findBestMove } from "./logic/game";
 import { TURNS } from "./logic/constants";
 import confetti from "canvas-confetti";
 import { Tablero } from "./components/Tablero";
+import { lsGet, lsSet } from "./logic/localstorage";
 
 function App() {
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [turnoActual, setTurnoActual] = useState(TURNS.X);
+  const [board, setBoard] = useState( () => {
+      const boardFromStorage = lsGet('board');
+      return boardFromStorage || Array(9).fill(null);
+  });
+  const [turnoActual, setTurnoActual] = useState( () => {
+    const turnoFromStorage = lsGet('turno');
+    return turnoFromStorage || TURNS.X;
+  });
   const [ganador, setGanador] = useState(null);
 
-  const clickCelda = (nroCelda) => {
+  const actualizarTablero = (nroCelda) => {
     if (board[nroCelda] != null) return;
 
     //Actualizo el movimiento en el tablero
@@ -22,6 +29,10 @@ function App() {
     //Cambio de turno
     const nuevoTurno = turnoActual == TURNS.X ? TURNS.O : TURNS.X;
     setTurnoActual(nuevoTurno);
+
+    //Guardo en LOCAL STORAGE
+    lsSet('board', newBoard);
+    lsSet('turno', nuevoTurno);
 
     // revisar si hay ganador
     // null es que no hay ganador, false es que hay un empate
@@ -37,21 +48,25 @@ function App() {
   };
 
   const resetGame = () => {
-    setBoard(Array(9).fill(null));
+    const newBoard = Array(9).fill(null);
+    setBoard(newBoard);
     setTurnoActual(TURNS.X);
     setGanador(null);
+
+    //Limpio el LOCAL STORAGE
+    lsSet('board', newBoard);
+    lsSet('turno', TURNS.X);
   };
 
   const jugadaIA = () => {
     const bestMove = findBestMove(board, turnoActual);
-    //console.log(`La mejor jugada para ${turnoActual} es ${bestMove}.`);
-    clickCelda(bestMove);
+    actualizarTablero(bestMove);
   };
 
   return (
     <main className="board">
       <h1>Tic Tac Toe</h1>
-      <Tablero tablero={board} funcionClickCelda={clickCelda} />
+      <Tablero tablero={board} funcionClickCelda={actualizarTablero} />
 
       <TurnoActual turno={turnoActual} />
       <button onClick={resetGame}>LIMPIAR</button>
