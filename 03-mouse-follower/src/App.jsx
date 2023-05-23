@@ -1,9 +1,12 @@
-import './App.css'
+import { MouseFollower } from "./components/MouseFollower";
 
 function App() {
   return (
-    <h3>Proyecto 3</h3>
-  )
+    <>
+    <div>Seguimiento del cursor</div><br></br>
+      <MouseFollower></MouseFollower>
+    </>
+  );
 }
 
-export default App
+export default App;
