@@ -7,8 +7,8 @@ const CAT_ENDPOINT_IMG = "https://cataas.com/cat/says/";
 
 export const App = () => {
   const [frase, setFrase] = useState();
-  const [fraseBreve, setFraseBreve] = useState();
   const [imgMeme, setImgMeme] = useState();
+  const fraseBreve = frase?.split(" ", 3).join(" "); //Armo una frase breve con las 3 primeras palabras
 
   const GenerarMeme = async () => {
     try {
@@ -16,23 +16,18 @@ export const App = () => {
       let resp = await fetch(CAT_ENDPOINT_FACT);
       resp = await resp.json();
       setFrase(resp.fact);
-
-      //Genero la frase breve (si es mas larga de 20 caracteres, tomo las primeras 3 palabras)
-      let fraseBreve = resp.fact;
-      if (resp.length > 20) fraseBreve = fraseBreve.split(" ", 3).join(" ");
-      setFraseBreve(fraseBreve);
     } catch (ex) {
       console.error("Error al obtener frase: ", ex);
     }
   };
 
   useEffect(() => {
-    if (!fraseBreve) return;
+    if (!frase) return;
 
     fetch(`${CAT_ENDPOINT_IMG}${fraseBreve}?json=true`)
       .then((resp) => resp.json())
       .then((resp) => setImgMeme(resp.url));
-  }, [fraseBreve]);
+  }, [frase]);
 
   return (
     <main>
