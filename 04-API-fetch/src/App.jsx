@@ -22,7 +22,9 @@ export const App = () => {
   };
 
   //recupera un meme al cargar la pagina
-  useEffect(GenerarMeme, []);
+  useEffect(() => {
+    GenerarMeme()
+  }, []);
 
   //recupera una imagen cada vez que cambia la frase
   useEffect(() => {
