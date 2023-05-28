@@ -1,31 +1,16 @@
-import { useEffect, useState } from "react";
 import "./App.css";
 import { useCatImage } from './hooks/useCatImage.js'
-import { getRandomFact }  from "./services/getRandomFact.js"
+import { useCatFrase } from "./hooks/useCatFrase";
 
 export const App = () => {
-  const [frase, setFrase] = useState();
+  const {frase, GenerarFrase} = useCatFrase();
   const { imageURL } = useCatImage({frase});
-
-  const GenerarMeme = async () => {
-    try {
-      const randomFact = await getRandomFact();
-      setFrase(randomFact);
-    } catch (ex) {
-      console.error("Error al obtener frase: ", ex);
-    }
-  };
-
-  //recupera un meme al cargar la pagina
-  useEffect(() => {
-    GenerarMeme()
-  }, []);
 
   return (
     <main>
       <h1>Frases de gatitos</h1>
 
-      <button onClick={GenerarMeme}>Generar meme</button>
+      <button onClick={GenerarFrase}>Generar meme</button>
       {frase && (
         <section>
           <div className="frase">{frase}</div>
