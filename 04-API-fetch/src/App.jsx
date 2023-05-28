@@ -1,21 +1,16 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-
-const CAT_ENDPOINT_FACT = "https://catfact.ninja/fact";
-const CAT_IMG_BASE = "https://cataas.com/";
-const CAT_ENDPOINT_IMG = "https://cataas.com/cat/says/";
+import { useCatImage } from './hooks/useCatImage.js'
+import { getRandomFact }  from "./services/getRandomFact.js"
 
 export const App = () => {
   const [frase, setFrase] = useState();
-  const [imgMeme, setImgMeme] = useState();
-  const fraseBreve = frase?.split(" ", 3).join(" "); //Armo una frase breve con las 3 primeras palabras
+  const { imageURL } = useCatImage({frase});
 
   const GenerarMeme = async () => {
     try {
-      //Recupero una frase del API 1
-      let resp = await fetch(CAT_ENDPOINT_FACT);
-      resp = await resp.json();
-      setFrase(resp.fact);
+      const randomFact = await getRandomFact();
+      setFrase(randomFact);
     } catch (ex) {
       console.error("Error al obtener frase: ", ex);
     }
@@ -26,15 +21,6 @@ export const App = () => {
     GenerarMeme()
   }, []);
 
-  //recupera una imagen cada vez que cambia la frase
-  useEffect(() => {
-    if (!frase) return;
-
-    fetch(`${CAT_ENDPOINT_IMG}${fraseBreve}?json=true`)
-      .then((resp) => resp.json())
-      .then((resp) => setImgMeme(resp.url));
-  }, [frase]);
-
   return (
     <main>
       <h1>Frases de gatitos</h1>
@@ -43,10 +29,10 @@ export const App = () => {
       {frase && (
         <section>
           <div className="frase">{frase}</div>
-          {imgMeme && (
+          {imageURL && (
             <img
-              src={CAT_IMG_BASE + imgMeme}
-              alt={`Imagen aleatorea de un gatito con la frase ${fraseBreve}`}
+              src={imageURL}
+              alt={`Imagen aleatorea de un gatito con la frase ${frase}`}
             />
           )}
         </section>
