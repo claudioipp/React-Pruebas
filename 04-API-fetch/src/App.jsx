@@ -4,7 +4,7 @@ import { useCatFrase } from "./hooks/useCatFrase";
 
 export const App = () => {
   const {frase, GenerarFrase} = useCatFrase();
-  const { imageURL } = useCatImage({frase});
+  const { imageURL } = useCatImage({textoImagen: frase});
 
   return (
     <main>
